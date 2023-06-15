@@ -64,10 +64,11 @@ else {
 <h1 class="<?=$red?>"><?= $title ?></h1>
 <div>Авторов на портале: <?= $countOfAuthors ?></div>
 
-<p class="grey">Книга <b><?=$library['books'][0]['title']?></b>, ее написал <?=$library['authors']['john_makkormik@example.com']['name']?> <?=$library['authors']['john_makkormik@example.com']['birthYear']?> (<a href="#"><?=$library['books'][0]['author']?></a>)</p>
-<p>Книга <b><?=$library['books'][1]['title']?></b>, ее написал <?=$library['authors']['martin_robert@example.com']['name']?> <?=$library['authors']['martin_robert@example.com']['birthYear']?> (<a href="#"><?=$library['books'][1]['author']?></a>)</p>
-<p class="grey">Книга <b><?=$library['books'][2]['title']?></b>, ее написал <?=$library['authors']['martin_robert@example.com']['name']?> <?=$library['authors']['martin_robert@example.com']['birthYear']?> (<a href="#"><?=$library['books'][2]['author']?></a>)</p>
-<p>Книга <b><?=$library['books'][3]['title']?></b>, ее написал <?=$library['authors']['martin_fauler@example.com']['name']?> <?=$library['authors']['martin_fauler@example.com']['birthYear']?> (<a href="#"><?=$library['books'][3]['author']?></a>)</p>
+<?php foreach ($library['books'] as $book) {?>
+<p class="grey">
+    Книга <b><?= $book['title']?></b>, ее написал <?= $library['authors'][$book['author']]['name']?>, <?= $library['authors'][$book['author']]['birthYear']?> (<a href="#"><?= $book['author']?></a>)
+</p>
+<?php } ?>
 
 </body>
 </html>
