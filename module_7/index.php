@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<?
+<?php
 
 include "task1.php";
 include "task2.php";
