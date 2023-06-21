@@ -6,17 +6,12 @@ $url = '/some/path/to/page/';
 var_dump(trim($url, "/"));
 
 
-
-
-
 // 2. Уберите из строки все запятые и точки, а пробелы замените на тире
 $line = 'Good news, everyone.';
-$withoutDots = str_replace(',', '', $line );
+$withoutDots = str_replace(',', '', $line);
 $withoutCommas = str_replace('.', '', $withoutDots);
 $withoutSpaces = str_replace(' ', '-', $withoutCommas);
 var_dump($withoutSpaces);
-
-
 
 
 // 3. Посчитайте и выведите длину строки переменной $line

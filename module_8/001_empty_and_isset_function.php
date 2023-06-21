@@ -28,7 +28,6 @@ $items = [
 ];
 
 foreach ($items as $item) {
-
     var_dump(isset($item));
 }
 

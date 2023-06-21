@@ -60,7 +60,6 @@ $emails = array_keys($library['authors']);
 var_dump($emails); // Почему-то выводит только два последних ключа
 
 
-
 // 3. Используя подходящую встроенную функцию, определите, есть ли среди этих email 'martin_fauler@example.com'
 $hasMartinFauler = in_array('martin_fauler@example.com', $emails);
 var_dump($hasMartinFauler); // true
@@ -76,7 +75,7 @@ $newBookOfFauler = [
     'title' => 'Новая книга Фаулера',
     'author' => 'martin_fauler@example.com',
     'year' => 2010,
-    ];
+];
 array_push($library['books'], $newBookOfFauler);
 var_dump($library);
 
@@ -86,7 +85,7 @@ $otherNewBookOfFauler = [
     'title' => 'Ещё одна новая книга Фаулера',
     'author' => 'martin_fauler@example.com',
     'year' => 2010,
-    ];
+];
 array_unshift($library['books'], $newBookOfFauler);
 var_dump($library);
 
