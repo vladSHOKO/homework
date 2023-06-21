@@ -1,4 +1,5 @@
 <?php
+
 require "app/core.php";
 
 ?>
@@ -22,7 +23,7 @@ include "templates/navigation.php";
     <?php
 
     include "templates/authorization.php";
-    if ( $isAuthorized == true ) {
+    if ($isAuthorized == true) {
         include "templates/task_2_welcome_message.php";
     } else {
         include "templates/task_2_auth_form.php";
