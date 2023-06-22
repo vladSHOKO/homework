@@ -25,5 +25,6 @@ var_dump($position);
 
 
 // 5. Вырежьте из строки $line подстроку после запятой до предпоследнего символа с конца
-var_dump(substr($line, strpos($line, ',')));
+var_dump(substr(substr($line, strpos($line, ',')), 0, 2));
+
 
