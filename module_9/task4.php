@@ -1,23 +1,23 @@
-<pre>
 <?php
 
-$city1 = 250;
-$city1Radius = 300;
-$city2 = 750;
-$city2Radius = 300;
+$city1 = rand(0, 1000);
+$city1Radius = rand(0, 1000);
+$city2 = rand(0, 1000);
+$city2Radius = rand(0, 1000);
 
 $countOfCars = 10;//Количество машин
+$cars = [];
+for ($i = 1; $i <= $countOfCars; $i++) {
+    $cars[$i] = rand(0, 1000);
+}
 
-for ($i = 0; $i < $countOfCars; $i++) {
-    $positionOfCar = rand(1, 1000);
-    $numberOfCar = $i + 1;
-    if (($positionOfCar < 250 or $positionOfCar > 400) and ($positionOfCar < 600
-            or $positionOfCar > 900)
+foreach ($cars as $numberOfCar => $distance) {
+    if (($distance < $city1 - $city1Radius or $distance > $city1 + $city1Radius)
+        and ($distance < $city2 - $city2Radius or $distance > $city2
+            + $city2Radius)
     ) {
-        echo "Машина {$numberOfCar} едет вне города на {$positionOfCar} со скоростью не более 70 километров ";
+        echo "Машина {$numberOfCar} едет вне города на {$distance} со скоростью не более 90 \n";
     } else {
-        echo "Машина {$numberOfCar} едет по городу на {$positionOfCar} со скоростью не более 70 километров ";
+        echo "Машина {$numberOfCar} едет по городу на {$distance} со скоростью не более 70 \n";
     }
 }
-?>
-</pre>

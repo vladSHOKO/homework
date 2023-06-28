@@ -2,13 +2,14 @@
 
 $numbers = [];
 
-for ($i = 0; $i < rand(3, 20); $i++) {
+$randomLength = rand(3, 20);
+for ($i = 0; $i < $randomLength; $i++) {
     array_unshift($numbers, rand(0, 10));
 }
 
 $sumOfNumbers = 0;
 foreach ($numbers as $key => $value) {
-    if ($key % 2 != 0) {
+    if ($key % 2) {
         $sumOfNumbers += $value;
     }
 }
