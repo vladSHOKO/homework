@@ -20,10 +20,6 @@ echo $a;
 
 // 4. Переопределение значений в суперглобальных переменных
 if ($x > 2) {
-    $_GET['show_info'] = 'y';
-}
-
-if (in_array('show_info', $_GET) && $_GET['show_info'] == 'y') {
     echo 'done';
 }
 
@@ -38,8 +34,9 @@ if (in_array('show_info', $_GET) && $_GET['show_info'] == 'y') {
 
 <?php
 // 6. Вывод тегов оператором echo
-if ($x > 2) {
-    echo '<p>Hello World</p>';
+if ($x > 2) { ?>
+    <p><?= 'Hello World' ?></p>
+    <?php
 }
 
 // 7. Ошибки, связанные с применением bool
