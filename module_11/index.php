@@ -1,7 +1,8 @@
 <?php
 
-require "data/users.php";
-require "data/passwords.php";
+include "data/users.php";
+include "data/passwords.php";
+include "data/authtorization.php";
 
 
 ?>
@@ -28,6 +29,7 @@ require "data/passwords.php";
         <li><a href="#">Контакты</a></li>
         <li><a href="#">Новости</a></li>
         <li><a href="#">Каталог</a></li>
+        <li><a href="/?login=yes"><?= $authorization ?></a></li>
     </ul>
 </div>
 
@@ -40,66 +42,54 @@ require "data/passwords.php";
                 задачи и многое другое. Делится списками с друзьями и
                 просматривать списки друзей.</p>
 
-
         </td>
+        <?php
+        if (array_key_exists("login", $_GET) == true
+        && $_GET['login'] == 'yes' && $authtirized == false
+        ) { ?>
+        ?>
         <td class="right-collum-index">
 
             <div class="project-folders-menu">
                 <ul class="project-folders-v">
 
-                    <li <?php
-                    if (array_key_exists("login", $_GET) == true
-                        && $_GET['login'] == 'yes'
-                    ) { ?> class="project-folders-v-active" <?php
-                    } ?>><a href="/?login=yes">Авторизация</a></li>
+                    <li class="project-folders-v-active"><a
+                            href="/?login=yes"><?= $authorization ?></a></li>
                     <li><a href="#">Регистрация</a></li>
                     <li><a href="#">Забыли пароль?</a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
-
-            <?php
-            if (array_key_exists("login", $_GET) == true
-                && $_GET['login'] == 'yes'
-            ) { ?>
-                <div class="index-auth">
-                    <form action="/?login=yes" method="post">
-                        <table width="100%" border="0" cellspacing="0"
-                               cellpadding="0">
-                            <tr>
-                                <td class="iat">
-                                    <label for="login_id">Ваш e-mail:</label>
-                                    <input id="login_id" size="30" name="login">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="iat">
-                                    <label for="password_id">Ваш пароль:</label>
-                                    <input id="password_id" size="30"
-                                           name="password" type="password">
-                                    <?php
-                                    if (array_key_exists('login', $_POST)) {
-                                        for ($i = 0; $i < count($users); $i++) {
-                                            if ($_POST['login'] === $users[$i]
-                                                && $_POST['password']
-                                                === $passwords[$i]
-                                            ) {
-                                                include "include/success_message.php";
-                                                break;
-                                            } else {
-                                                include "include/error_message.php";
-                                                break;
-                                            }
-                                        }
-                                    } ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="submit" value="Войти"></td>
-                            </tr>
-                        </table>
-                    </form>
-                </div> <?php
+            <div class="index-auth">
+                <form action="/?login=yes" method="post">
+                    <table width="100%" border="0" cellspacing="0"
+                           cellpadding="0">
+                        <tr>
+                            <td class="iat">
+                                <label for="login_id">Ваш e-mail:</label>
+                                <input id="login_id" size="30" name="login"
+                                       value="<?php
+                                       if (array_key_exists('login', $_POST)) {
+                                           echo $_POST['login'];
+                                       } ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="iat">
+                                <label for="password_id">Ваш пароль:</label>
+                                <input id="password_id" size="30"
+                                       name="password"
+                                       type="password">
+                                <?php
+                                include "data/authtorization.php"; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" value="Войти"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div> <?php
             } ?>
 
         </td>
@@ -113,6 +103,7 @@ require "data/passwords.php";
         <li><a href="#">Контакты</a></li>
         <li><a href="#">Новости</a></li>
         <li><a href="#">Каталог</a></li>
+        <li><a href="/?login=yes"><?= $authorization ?></a></li>
     </ul>
 </div>
 
