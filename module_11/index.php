@@ -45,7 +45,8 @@ include "data/authtorization.php";
         </td>
         <?php
         if (array_key_exists("login", $_GET) == true
-        && $_GET['login'] == 'yes' && $authtirized == false
+        && $_GET['login'] == 'yes'
+        && $authtirized == false
         ) { ?>
         ?>
         <td class="right-collum-index">
