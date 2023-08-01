@@ -29,7 +29,8 @@ include "data/authtorization.php";
         <li><a href="#">Контакты</a></li>
         <li><a href="#">Новости</a></li>
         <li><a href="#">Каталог</a></li>
-        <li><a href="/?login=yes"><?= $authorization ?></a></li>
+        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти'
+                    : 'Авторизация' ?></a></li>
     </ul>
 </div>
 
@@ -43,19 +44,15 @@ include "data/authtorization.php";
                 просматривать списки друзей.</p>
 
         </td>
-        <?php
-        if (array_key_exists("login", $_GET) == true
-        && $_GET['login'] == 'yes'
-        && $authtirized == false
-        ) { ?>
-        ?>
-        <td class="right-collum-index">
+
+        <td class="right-collum-index" <?php if ($authtirized) { ?> hidden <?php } ?> >
 
             <div class="project-folders-menu">
                 <ul class="project-folders-v">
 
                     <li class="project-folders-v-active"><a
-                            href="/?login=yes"><?= $authorization ?></a></li>
+                            href="/?login=yes"><?= $authtirized ? 'Выйти'
+                                : 'Авторизация' ?></a></li>
                     <li><a href="#">Регистрация</a></li>
                     <li><a href="#">Забыли пароль?</a></li>
                 </ul>
@@ -90,8 +87,7 @@ include "data/authtorization.php";
                         </tr>
                     </table>
                 </form>
-            </div> <?php
-            } ?>
+            </div>
 
         </td>
     </tr>
@@ -104,7 +100,7 @@ include "data/authtorization.php";
         <li><a href="#">Контакты</a></li>
         <li><a href="#">Новости</a></li>
         <li><a href="#">Каталог</a></li>
-        <li><a href="/?login=yes"><?= $authorization ?></a></li>
+        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти' : 'Авторизация' ?></a></li>
     </ul>
 </div>
 

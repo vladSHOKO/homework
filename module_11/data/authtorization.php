@@ -1,7 +1,6 @@
 <?php
 
 $authtirized = false;
-$authorization = 'Авторизация';
 
 if (array_key_exists('login', $_POST)) {
     for ($i = 0; $i < count($users); $i++) {
@@ -18,10 +17,4 @@ if (array_key_exists('login', $_POST)) {
             break;
         }
     }
-}
-
-if ($authtirized) {
-    $authorization = 'Выйти';
-} else {
-    $authorization = 'Авторизация';
 }
