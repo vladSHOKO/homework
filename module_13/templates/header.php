@@ -1,8 +1,7 @@
 <?php
+
 include 'src/core.php';
-include "data/users.php";
-include "data/passwords.php";
-include "data/authtorization.php";
+
 ?>
 <div class="header">
     <div class="logo"><img src="./i/logo.png" alt="Project"></div>
@@ -11,12 +10,12 @@ include "data/authtorization.php";
 
 <div class="clear">
     <ul class="main-menu">
-        <li><a href="#">Главная</a></li>
-        <li><a href="route/about.php">О нас</a></li>
-        <li><a href="#">Контакты</a></li>
-        <li><a href="#">Новости</a></li>
-        <li><a href="#">Каталог</a></li>
-        <li><a href="#">Курсы</a></li>
+        <li><a href="/index.php">Главная</a></li>
+        <li><a href="/route/about.php">О нас</a></li>
+        <li><a href="/route/contacts.php">Контакты</a></li>
+        <li><a href="/route/news.php">Новости</a></li>
+        <li><a href="/route/catalog.php">Каталог</a></li>
+        <li><a href="/route/kak_kupit_kursy.php">Курсы</a></li>
         <li><a href="/?login=yes"><?= $authtirized ? 'Выйти'
                     : 'Авторизация' ?></a></li>
     </ul>

@@ -1,10 +1,3 @@
-<?php
-
-include "data/users.php";
-include "data/passwords.php";
-include "data/authtorization.php";
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +6,10 @@ include "data/authtorization.php";
     <title>Project - ведение списков</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 </head>
-
+<?php
+include 'templates/header.php' ?>
 <body>
 
-<?php include 'templates/header.php'?>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
@@ -29,7 +22,9 @@ include "data/authtorization.php";
 
         </td>
 
-        <td class="right-collum-index" <?php if ($authtirized) { ?> hidden <?php } ?> >
+        <td class="right-collum-index" <?php
+        if ($authtirized) { ?> hidden <?php
+        } ?> >
 
             <div class="project-folders-menu">
                 <ul class="project-folders-v">
@@ -77,19 +72,7 @@ include "data/authtorization.php";
     </tr>
 </table>
 
-<div class="clearfix">
-    <ul class="main-menu bottom">
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">О нас</a></li>
-        <li><a href="#">Контакты</a></li>
-        <li><a href="#">Новости</a></li>
-        <li><a href="#">Каталог</a></li>
-        <li><a href="#">Курсы</a></li>
-        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти' : 'Авторизация' ?></a></li>
-    </ul>
-</div>
-
-<?php include 'templates/footer.php'?>
-
 </body>
+<?php
+include 'templates/footer.php' ?>
 </html>
