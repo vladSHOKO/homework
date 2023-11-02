@@ -1,8 +1,8 @@
 <?php
 
 $users = [
-    "admin",
-    "otheruser123",
-    "user321",
-    "otheruser321"
+    "admin" => 0,
+    "otheruser123" => 1,
+    "user321" => 2,
+    "otheruser321" => 3
 ];

@@ -19,7 +19,7 @@ include "data/authtorization.php";
 
 <div class="header">
     <div class="logo"><img src="i/logo.png" alt="Project"></div>
-    <div class="author">Автор: <span class="author__name">***</span></div>
+    <div class="author">Автор: <span class="author__name">Vladislav</span></div>
 </div>
 
 <div class="clear">
@@ -45,14 +45,15 @@ include "data/authtorization.php";
 
         </td>
 
-        <td class="right-collum-index" <?php if ($authtirized) { ?> hidden <?php } ?> >
+        <td class="right-collum-index" <?php
+        if ($authtirized) { ?> hidden <?php
+        } ?> >
 
             <div class="project-folders-menu">
                 <ul class="project-folders-v">
 
                     <li class="project-folders-v-active"><a
-                            href="/?login=yes"><?= $authtirized ? 'Выйти'
-                                : 'Авторизация' ?></a></li>
+                            href="/?login=yes">Авторизация</a></li>
                     <li><a href="#">Регистрация</a></li>
                     <li><a href="#">Забыли пароль?</a></li>
                 </ul>
@@ -67,7 +68,7 @@ include "data/authtorization.php";
                                 <label for="login_id">Ваш e-mail:</label>
                                 <input id="login_id" size="30" name="login"
                                        value="<?php
-                                       if (array_key_exists('login', $_POST)) {
+                                       if (!empty ($_POST)) {
                                            echo $_POST['login'];
                                        } ?>">
                             </td>
@@ -100,7 +101,8 @@ include "data/authtorization.php";
         <li><a href="#">Контакты</a></li>
         <li><a href="#">Новости</a></li>
         <li><a href="#">Каталог</a></li>
-        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти' : 'Авторизация' ?></a></li>
+        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти'
+                    : 'Авторизация' ?></a></li>
     </ul>
 </div>
 
