@@ -80,7 +80,9 @@ include "data/authtorization.php";
                                        name="password"
                                        type="password">
                                 <?php
-                                include "data/authtorization.php"; ?>
+                                include "data/authtorization.php";
+                                include "include/error_message.php";
+                                ?>
                             </td>
                         </tr>
                         <tr>
@@ -91,6 +93,8 @@ include "data/authtorization.php";
             </div>
 
         </td>
+        <?php
+        include "include/success_message.php" ?>
     </tr>
 </table>
 
