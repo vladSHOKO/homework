@@ -6,7 +6,7 @@ if (!empty($_POST)) {
         <td class="right-collum-index">
             <div>Вы успешно авторизовались</div>
         </td>
-    <?php
+        <?php
     }
 }
 ?>
