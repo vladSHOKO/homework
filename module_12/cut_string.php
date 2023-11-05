@@ -1,6 +1,6 @@
 <?php
 
-function cutString($line, $length, $appends)
+function cutString(string $line, int $length, string $appends): string
 {
     if (strlen($line) <= $length) {
         return $line;
