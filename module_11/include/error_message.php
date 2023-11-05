@@ -1,5 +1,7 @@
 <?php
 
+global $authorized;
+
 if (!empty($_POST)) {
     if (!$authorized) {
         ?>

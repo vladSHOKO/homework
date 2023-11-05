@@ -2,7 +2,7 @@
 
 $users = [
     "admin",
-    "otheruser123",
+    "user123",
     "user321",
-    "otheruser321"
+    "anotherUser321"
 ];

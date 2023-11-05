@@ -1,8 +1,7 @@
 <?php
 
-
 include "data/authorization.php";
-
+global $authorized;
 
 ?>
 <!DOCTYPE html>
