@@ -1,7 +1,7 @@
 <?php
 
 if (!empty($_POST)) {
-    if (!$authtirized) {
+    if (!$authorized) {
         ?>
         <div>Неверный логин или пароль</div>
         <?php

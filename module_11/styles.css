@@ -205,7 +205,8 @@ a:hover {
 }
 
 .iat input {
-    width: 99% !important;
+    width: 200px;
+
 }
 
 .iat label {

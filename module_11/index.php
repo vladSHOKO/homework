@@ -1,8 +1,7 @@
 <?php
 
-include "data/users.php";
-include "data/passwords.php";
-include "data/authtorization.php";
+
+include "data/authorization.php";
 
 
 ?>
@@ -29,7 +28,7 @@ include "data/authtorization.php";
         <li><a href="#">Контакты</a></li>
         <li><a href="#">Новости</a></li>
         <li><a href="#">Каталог</a></li>
-        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти'
+        <li><a href="/?login=yes"><?= $authorized ? 'Выйти'
                     : 'Авторизация' ?></a></li>
     </ul>
 </div>
@@ -46,7 +45,7 @@ include "data/authtorization.php";
         </td>
 
         <td class="right-collum-index" <?php
-        if ($authtirized) { ?> hidden <?php
+        if ($authorized) { ?> hidden <?php
         } ?> >
 
             <div class="project-folders-menu">
@@ -80,7 +79,6 @@ include "data/authtorization.php";
                                        name="password"
                                        type="password">
                                 <?php
-                                include "data/authtorization.php";
                                 include "include/error_message.php";
                                 ?>
                             </td>
@@ -105,7 +103,7 @@ include "data/authtorization.php";
         <li><a href="#">Контакты</a></li>
         <li><a href="#">Новости</a></li>
         <li><a href="#">Каталог</a></li>
-        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти'
+        <li><a href="/?login=yes"><?= $authorized ? 'Выйти'
                     : 'Авторизация' ?></a></li>
     </ul>
 </div>

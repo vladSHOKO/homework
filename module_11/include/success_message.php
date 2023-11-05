@@ -1,7 +1,7 @@
 <?php
 
 if (!empty($_POST)) {
-    if ($authtirized) {
+    if ($authorized) {
         ?>
         <td class="right-collum-index">
             <div>Вы успешно авторизовались</div>
