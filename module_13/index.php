@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="styles.css" rel="stylesheet">
-    <title>Project - ведение списков</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-</head>
 <?php
-include 'templates/header.php' ?>
-<body>
 
+include "data/authorization.php";
+global $authorized;
+include "templates/header.php"; ?>
+
+<body>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
@@ -19,19 +14,20 @@ include 'templates/header.php' ?>
             <p>Вести свои личные списки, например покупки в магазине, цели,
                 задачи и многое другое. Делится списками с друзьями и
                 просматривать списки друзей.</p>
+            <?php
+            var_dump($_SERVER['PHP_SELF']); ?>
 
         </td>
 
         <td class="right-collum-index" <?php
-        if ($authtirized) { ?> hidden <?php
+        if ($authorized) { ?> hidden <?php
         } ?> >
 
             <div class="project-folders-menu">
                 <ul class="project-folders-v">
 
                     <li class="project-folders-v-active"><a
-                            href="/?login=yes"><?= $authtirized ? 'Выйти'
-                                : 'Авторизация' ?></a></li>
+                            href="/?login=yes">Авторизация</a></li>
                     <li><a href="#">Регистрация</a></li>
                     <li><a href="#">Забыли пароль?</a></li>
                 </ul>
@@ -46,7 +42,7 @@ include 'templates/header.php' ?>
                                 <label for="login_id">Ваш e-mail:</label>
                                 <input id="login_id" size="30" name="login"
                                        value="<?php
-                                       if (array_key_exists('login', $_POST)) {
+                                       if (!empty ($_POST)) {
                                            echo $_POST['login'];
                                        } ?>">
                             </td>
@@ -58,7 +54,8 @@ include 'templates/header.php' ?>
                                        name="password"
                                        type="password">
                                 <?php
-                                include "data/authtorization.php"; ?>
+                                include "include/error_message.php";
+                                ?>
                             </td>
                         </tr>
                         <tr>
@@ -69,10 +66,13 @@ include 'templates/header.php' ?>
             </div>
 
         </td>
+        <?php
+        include "include/success_message.php" ?>
     </tr>
 </table>
 
+
 </body>
 <?php
-include 'templates/footer.php' ?>
+include "templates/footer.php"; ?>
 </html>

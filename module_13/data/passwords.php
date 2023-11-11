@@ -2,7 +2,7 @@
 
 $passwords = [
     "pass",
-    "otherpassword123",
+    "password123",
     "password321",
-    "otherpassword321"
+    "anotherPassword321"
 ];

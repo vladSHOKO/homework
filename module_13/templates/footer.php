@@ -1,17 +1,24 @@
+<?php
 
-<div class="clearfix">
-    <ul class="main-menu bottom">
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">О нас</a></li>
-        <li><a href="#">Контакты</a></li>
-        <li><a href="#">Новости</a></li>
-        <li><a href="#">Каталог</a></li>
-        <li><a href="#">Курсы</a></li>
-        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти'
-                    : 'Авторизация' ?></a></li>
-    </ul>
-</div>
+global $authorized;
+global $menu;
 
-<div class="footer">&copy;&nbsp;<nobr>2018</nobr>
-    Project.
-</div>
+
+?>
+<footer>
+    <div class="clearfix">
+        <ul class="main-menu bottom">
+            <?php
+            showMenu(arraySort($menu, 'title', SORT_DESC), 12);
+            ?>
+            <li><a href="/?login=yes"><?= $authorized
+                        ? 'Выйти'
+                        : 'Авторизация' ?></a></li>
+        </ul>
+    </div>
+
+
+    <div class="footer">&copy;&nbsp;<nobr>2018</nobr>
+        Project.
+    </div>
+</footer>

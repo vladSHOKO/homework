@@ -1,22 +1,34 @@
 <?php
 
-include 'src/core.php';
+include "./src/core.php";
+global $authorized;
+global $menu;
+
 
 ?>
-<div class="header">
-    <div class="logo"><img src="./i/logo.png" alt="Project"></div>
-    <div class="author">Автор: <span class="author__name">Vladislav</span></div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/styles.css" rel="stylesheet">
+    <title>Project - ведение списков</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+</head>
+<header>
+    <div class="header">
+        <div class="logo"><img src="/i/logo.png" alt="Project"></div>
+        <div class="author">Автор: <span class="author__name">Vladislav</span>
+        </div>
+    </div>
 
-<div class="clear">
-    <ul class="main-menu">
-        <li><a href="/index.php">Главная</a></li>
-        <li><a href="/route/about.php">О нас</a></li>
-        <li><a href="/route/contacts.php">Контакты</a></li>
-        <li><a href="/route/news.php">Новости</a></li>
-        <li><a href="/route/catalog.php">Каталог</a></li>
-        <li><a href="/route/kak_kupit_kursy.php">Курсы</a></li>
-        <li><a href="/?login=yes"><?= $authtirized ? 'Выйти'
-                    : 'Авторизация' ?></a></li>
-    </ul>
-</div>
+    <div class="clear">
+        <ul class="main-menu">
+            <?php
+            showMenu(arraySort($menu, 'sort', SORT_ASC), 16);
+            ?>
+            <li><a href="/?login=yes"><?= $authorized ? 'Выйти'
+                        : 'Авторизация' ?></a></li>
+        </ul>
+    </div>
+
+</header>

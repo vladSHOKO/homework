@@ -1,14 +1,14 @@
 <?php
 
-include "array_sort.php";
-include "main_menu.php";
-
-function showMenu(array $mainMenu, $key = 'sort', $sort = SORT_ASC){
-    arraySort($mainMenu, $key, $sort);
-
-    foreach ($mainMenu as $value){
-?> <li><a href="<?php $mainMenu[$value]['path'] ?>"><?php $mainMenu[$value]['title'] ?></a></li> <?php
+function showMenu(array $menu, int $fontSize): void
+{
+    foreach ($menu as $value) {
+        if (substr($value['path'], 7) == substr($_SERVER['PHP_SELF'], 7)) {
+            $underline = 'class="underline"';
+        } else {
+            $underline = null;
+        }
+        $template = '<li><a href="%s"><span %s>%s</span></a></li>';
+        printf($template, $value['path'], $underline, $value['title']);
     }
-
-
 }
