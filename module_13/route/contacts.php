@@ -1,14 +1,8 @@
 <?php
 
-include "./templates/header.php";
-global $menu; ?>
-<body>
-
-<?php
+global $menu;
 pageTitle($menu); ?>
 
-</body>
+<p class="author__name">Наши контакты</p>
 
-<?php
-include "./templates/footer.php"; ?>
-</html>
+

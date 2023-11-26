@@ -1,14 +1,7 @@
 <?php
 
-include "./templates/header.php";
-global $menu; ?>
-<body>
-
-<?php
+global $menu;
 pageTitle($menu); ?>
 
-</body>
+<p class="author__name">Каталог наших товаров</p>
 
-<?php
-include "./templates/footer.php"; ?>
-</html>

@@ -2,7 +2,7 @@
 
 global $authorized;
 
-if (!empty($_POST)) {
+if (isset($_POST['login'])) {
     if (!$authorized) {
         ?>
         <div>Неверный логин или пароль</div>

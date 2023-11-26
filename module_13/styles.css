@@ -216,3 +216,7 @@ a:hover {
 .underline {
     text-decoration: underline;
 }
+
+.title {
+    color: #cccccc;
+}

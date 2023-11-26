@@ -5,33 +5,32 @@ global $menu;
 $menu = [
     [
         'title' => 'Главная',
-        'path' => '/index.php',
+        'path' => '/?page=home',
         'sort' => 10,
     ],
     [
         'title' => 'О нас',
-        'path' => '/route/about.php',
+        'path' => '/?page=about',
         'sort' => 20,
     ],
     [
         'title' => 'Каталог',
-        'path' => '/route/catalog.php',
+        'path' => '/?page=catalog',
         'sort' => 50,
     ],
     [
         'title' => 'Контакты',
-        'path' => '/route/contacts.php',
+        'path' => '/?page=contacts',
         'sort' => 30,
     ],
     [
         'title' => 'Как купить курсы',
-        'path' => '/route/how_to_buy_courses.php',
+        'path' => '/?page=courses',
         'sort' => 60,
     ],
     [
         'title' => 'Новости',
-        'path' => '/route/news.php',
+        'path' => '/?page=news',
         'sort' => 40,
     ],
 ];
-
