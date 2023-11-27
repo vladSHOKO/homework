@@ -27,7 +27,7 @@ function cutString(string $line, int $length, string $appends): string
     if (iconv_strlen($line, 'utf-8') <= $length) {
         return $line;
     } else {
-        $line = substr($line, 0, $length) . $appends;
+        $line = iconv_substr($line, 0, $length) . $appends;
         return $line;
     }
 }
