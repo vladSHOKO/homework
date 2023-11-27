@@ -1,8 +1,5 @@
 <?php
 
-include "./main_menu.php";
-
-
 function arraySort(
     array $array,
     string $key = 'sort',
@@ -57,7 +54,11 @@ function showMenu(array $menu, int $fontSize): void
             $underline = null;
         }
         $template = '<li><a href="%s"><span %s>%s</span></a></li>';
-        printf($template, $value['path'], $underline, cutString($value['title'], 12, '...')
+        printf(
+            $template,
+            $value['path'],
+            $underline,
+            cutString($value['title'], 12, '...')
         );
     }
 }

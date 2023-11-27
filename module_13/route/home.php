@@ -1,6 +1,5 @@
 <?php
 
-include "data/authorization.php";
 global $authorized; ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>

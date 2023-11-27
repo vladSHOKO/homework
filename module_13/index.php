@@ -1,5 +1,6 @@
 <?php
 
+include __DIR__ . '/main_menu.php';
 include __DIR__ . "/data/authorization.php";
 global $authorized; ?>
 <!DOCTYPE html>
@@ -16,6 +17,9 @@ include "./templates/header.php"; ?>
 <body>
 
 <?php
+global $menu;
+pageTitle($menu);
+
 $requested_page = $_GET['page'] ?? 'home';
 
 switch ($requested_page) {
