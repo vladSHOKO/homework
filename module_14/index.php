@@ -26,9 +26,9 @@ UploadImages();
     <form enctype="multipart/form-data" method="post"
           action="<?= $_SERVER['PHP_SELF'] ?>">
         <?php
-        ShowPictures(__DIR__ . '/upload/', __DIR__);
+        showPictures(__DIR__ . '/upload/', __DIR__);
         ?>
-        <span> Загруите файл</span>
+        <span> Загрузите файл</span>
         <input type="hidden" name="MAX_FILE_SIZE" value="1048576">
         <input type="file" name="myImage[]"
                accept="image/jpeg,image/png,image/jpg" multiple>

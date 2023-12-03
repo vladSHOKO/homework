@@ -1,6 +1,6 @@
 <?php
 
-function ShowPictures(string $pathToUpload, string $path): void
+function showPictures(string $pathToUpload, string $path): void
 {
     if (!empty(array_diff(scandir($pathToUpload), array('.', '..')))) {
         $imgNames = array_diff(scandir($pathToUpload), array('.', '..'));
