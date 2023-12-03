@@ -21,26 +21,65 @@ function ShowPictures(string $pathToUpload, string $path): void
     }
 }
 
-function UploadImages(): void
+/**
+ * @throws Exception
+ */
+function validateImages(array $images, array $parameters): void
 {
-    if (isset($_FILES['myImage']) && isset($_POST['upload'])
-        && count(
-            $_FILES['myImage']['name']
-        ) <= 5
-    ) {
-        $uploadTo = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
-        for ($i = 0; $i < count($_FILES['myImage']['tmp_name']); $i++) {
-            if ($_FILES['myImage']['error'][$i] > 0 ??
-                $_POST['MAX_FILE_SIZE'] >= $_FILES['myImage']['size'][$i]
-            ) {
-                echo "Произошла ошибка при загрузке файла";
-            } else {
-                move_uploaded_file(
-                    $_FILES['myImage']['tmp_name'][$i],
-                    $uploadTo . $_FILES['myImage']['name'][$i]
-                );
-            }
+    checkEmpty($images);
+    checkMaxCount($images, $parameters);
+//    checkSize();
+//    checkType();
+//    checkName();
+}
+
+function checkEmpty(array $images): void
+{
+    if ($images[0]['error'] === 4) {
+        throw new Exception('Загрузите хоть что-то');
+    }
+}
+
+function checkMaxCount(array $images, array $parameters): void
+{
+    $count = $parameters['count'] ?? 5;
+    if (count($images) > $count) {
+        throw new Exception('Можно загрузить не более 5 файлов');
+    }
+}
+
+function prepareImages(): array
+{
+    $prepared = [];
+    $keys = array_keys($_FILES['myImage']);
+    foreach ($keys as $key) {
+        foreach ($_FILES['myImage'][$key] as $number => $data) {
+            $prepared[$number][$key] = $data;
         }
+    }
+
+    return $prepared;
+}
+
+if (isset($_POST['upload'])) {
+    $images = prepareImages();
+
+    try {
+        validateImages($images, ['count' => 10, 'size' => 4]);
+        uploadImages($images, $_SERVER['DOCUMENT_ROOT'] . '/upload/');
+    } catch (Exception $exception) {
+        echo $exception->getMessage();
+    }
+}
+
+
+function uploadImages(array $images, string $uploadTo): void
+{
+    foreach ($images as $image) {
+        move_uploaded_file(
+            $image['tmp_name'],
+            $uploadTo . $image['name']
+        );
     }
 }
 

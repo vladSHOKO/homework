@@ -4,7 +4,6 @@ include "src/core.php";
 
 DeleteAll(__DIR__ . '/upload/');
 DeleteSomePictures(__DIR__ . '/upload/');
-UploadImages();
 
 ?>
 <!DOCTYPE html>
@@ -29,9 +28,9 @@ UploadImages();
         ShowPictures(__DIR__ . '/upload/', __DIR__);
         ?>
         <span> Загруите файл</span>
-        <input type="hidden" name="MAX_FILE_SIZE" value="1048576">
+        <input type="hidden" name="MAX_FILE_SIZE">
         <input type="file" name="myImage[]"
-               accept="image/jpeg,image/png,image/jpg" multiple>
+               multiple>
         <input type="checkbox" name="deleteAll" value="Удалить всё"> Удалить всё
         <br>
         <br>
