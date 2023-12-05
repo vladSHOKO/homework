@@ -14,38 +14,126 @@ function showPictures(string $pathToUpload, string $path): void
                     filectime($path . '/upload/' . $imgName)
                 ) ?></figcaption>
 
-            <input type="checkbox" name="delete[]" value="<?= $imgName ?>">
-            Удалить
+            <input type="checkbox" name="delete[]" value="<?= $imgName ?>">Удалить
             </figure><?php
         }
     }
 }
 
-function UploadImages(): void
+/**
+ * @throws Exception
+ */
+function validateImages(array $images, array $parameters): array
 {
-    if (isset($_FILES['myImage']) && isset($_POST['upload'])
-        && count(
-            $_FILES['myImage']['name']
-        ) <= 5
-    ) {
-        $uploadTo = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
-        for ($i = 0; $i < count($_FILES['myImage']['tmp_name']); $i++) {
-            if ($_FILES['myImage']['error'][$i] > 0 ??
-                $_POST['MAX_FILE_SIZE'] >= $_FILES['myImage']['size'][$i]
-            ) {
-                echo "Произошла ошибка при загрузке файла";
-            } else {
-                move_uploaded_file(
-                    $_FILES['myImage']['tmp_name'][$i],
-                    $uploadTo . $_FILES['myImage']['name'][$i]
-                );
-            }
+    checkEmpty($images);
+    checkMaxCount($images, $parameters);
+    checkSize($images, $parameters);
+    checkType($images, $parameters);
+    return correctName($images, $parameters);
+}
+
+function correctName(array $images, array $parameters): array
+{
+    $pattern = $parameters['namePattern'];
+    foreach ($images as $key => $image) {
+        $images[$key]['name'] = preg_replace($pattern, '_', $image['name']);
+    }
+    return $images;
+}
+
+/**
+ * @throws Exception
+ */
+function checkType(array $images, array $parameters): void
+{
+    $types = array_flip($parameters['type']);
+    foreach ($images as $image) {
+        if (!array_key_exists($image['type'], $types)) {
+            throw new Exception('Загрузите другой формат файла');
         }
     }
 }
 
+/**
+ * @throws Exception
+ */
+function checkSize(array $images, array $parameters): void
+{
+    $size = $parameters['size'];
+    foreach ($images as $image) {
+        if ($image['size'] > $size ?? 2000000) {
+            throw new Exception('Слишком большой размер файла');
+        }
+    }
+}
 
-function DeleteAll(string $pathToUpload): void
+/**
+ * @throws Exception
+ */
+function checkEmpty(array $images): void
+{
+    if ($images[0]['error'] === 4) {
+        throw new Exception('Загрузите хоть что-то');
+    }
+}
+
+/**
+ * @throws Exception
+ */
+function checkMaxCount(array $images, array $parameters): void
+{
+    $count = $parameters['count'] ?? 5;
+    if (count($images) > $count) {
+        throw new Exception('Можно загрузить не более 5 файлов');
+    }
+}
+
+function prepareImages(): array
+{
+    $prepared = [];
+    $keys = array_keys($_FILES['myImage']);
+    foreach ($keys as $key) {
+        foreach ($_FILES['myImage'][$key] as $number => $data) {
+            $prepared[$number][$key] = $data;
+        }
+    }
+    return $prepared;
+}
+
+if (isset($_POST['upload'])) {
+    $images = prepareImages();
+
+    try {
+        uploadImages(
+            validateImages(
+                $images,
+                [
+                    'count' => 5,
+                    'size' => 2000000,
+                    'type' => ['image/jpeg', 'image/jpg', 'image/png'],
+                    'namePattern' => '/[^a-zA-Z0-9\._-]/'
+                ]
+            ),
+            $_SERVER['DOCUMENT_ROOT'] . '/upload/'
+        );
+    } catch (Exception $exception) {
+        echo $exception->getMessage();
+    }
+}
+
+
+function uploadImages(array $images, string $uploadTo): void
+{
+    foreach ($images as $image) {
+        move_uploaded_file(
+            $image['tmp_name'],
+            $uploadTo . $image['name']
+        );
+    }
+}
+
+
+function deleteAll(string $pathToUpload): void
 {
     if (isset($_POST['deleteAll'])) {
         $filesToDelete = array_diff(scandir($pathToUpload), array('.', '..'));
@@ -55,7 +143,7 @@ function DeleteAll(string $pathToUpload): void
     }
 }
 
-function DeleteSomePictures(string $pathToUpload): void
+function deleteSomePictures(string $pathToUpload): void
 {
     $files = array_diff(scandir($pathToUpload), array('.', '..'));
     if (isset($_POST['delete'])) {
