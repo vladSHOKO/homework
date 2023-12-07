@@ -1,43 +1,56 @@
 <?php
 
-include "src/core.php";
-
-deleteAll(__DIR__ . '/upload/');
-deleteSomePictures(__DIR__ . '/upload/');
-
-?>
+include __DIR__ . '/main_menu.php';
+include __DIR__ . "/data/authorization.php";
+global $authorized; ?>
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Галерея</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="/styles.css" rel="stylesheet">
+    <title>Project - ведение списков</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 </head>
+<?php
+include "./templates/header.php"; ?>
 
 <body>
 
-<div class="container">
+<?php
+global $menu;
+pageTitle($menu);
 
-    <form enctype="multipart/form-data" method="post"
-          action="<?= $_SERVER['PHP_SELF'] ?>">
-        <?php
-        showPictures(__DIR__ . '/upload/', __DIR__);
-        ?>
-        <span> Загруите файл</span>
-        <input type="file" name="myImage[]"
-               multiple>
-        <input type="checkbox" name="deleteAll" value="Удалить всё"> Удалить всё
-        <br>
-        <br>
-        <input type="submit" name="upload" value="Загрузить">
-        <input type="submit" name="delete[]" value="Удалить">
+$requested_page = $_GET['page'] ?? 'home';
 
-    </form>
-</div>
+switch ($requested_page) {
+    case "about":
+        include(__DIR__ . "/route/about.php");
+        break;
+    case "catalog":
+        include(__DIR__ . "/route/catalog.php");
+        break;
+    case "contacts":
+        include(__DIR__ . "/route/contacts.php");
+        break;
+    case "courses":
+        include(__DIR__ . "/route/courses.php");
+        break;
+    case "news":
+        include(__DIR__ . "/route/news.php");
+        break;
+    case "gallery":
+        include(__DIR__ . "/route/gallery.php");
+        break;
+    case "save":
+        include(__DIR__ . "/route/create.php");
+        include $_SERVER['DOCUMENT_ROOT'] . "/logic.php";
+        break;
+    default:
+        include(__DIR__ . "/route/home.php");
+}
+?>
 
 </body>
+<?php
+include "templates/footer.php"; ?>
 </html>

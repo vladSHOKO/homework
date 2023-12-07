@@ -23,18 +23,16 @@ function showPictures(string $pathToUpload, string $path): void
 /**
  * @throws Exception
  */
-function validateImages(array $images, array $parameters): array
+function validateImages(array $images, array $parameters): void
 {
     checkEmpty($images);
     checkMaxCount($images, $parameters);
     checkSize($images, $parameters);
     checkType($images, $parameters);
-    return correctName($images, $parameters);
 }
 
-function correctName(array $images, array $parameters): array
+function correctName(array $images, string $pattern): array
 {
-    $pattern = $parameters['namePattern'];
     foreach ($images as $key => $image) {
         $images[$key]['name'] = preg_replace($pattern, '_', $image['name']);
     }
@@ -100,29 +98,7 @@ function prepareImages(): array
     return $prepared;
 }
 
-if (isset($_POST['upload'])) {
-    $images = prepareImages();
-
-    try {
-        uploadImages(
-            validateImages(
-                $images,
-                [
-                    'count' => 5,
-                    'size' => 2000000,
-                    'type' => ['image/jpeg', 'image/jpg', 'image/png'],
-                    'namePattern' => '/[^a-zA-Z0-9\._-]/'
-                ]
-            ),
-            $_SERVER['DOCUMENT_ROOT'] . '/upload/'
-        );
-    } catch (Exception $exception) {
-        echo $exception->getMessage();
-    }
-}
-
-
-function uploadImages(array $images, string $uploadTo): void
+function saveImages(array $images, string $uploadTo): void
 {
     foreach ($images as $image) {
         move_uploaded_file(
@@ -157,4 +133,66 @@ function deleteSomePictures(string $pathToUpload): void
     }
 }
 
+function arraySort(
+    array $array,
+    string $key = 'sort',
+    int $sort = SORT_ASC
+): array {
+    for ($i = 0; $i < count($array); $i++) {
+        for ($j = $i + 1; $j < count($array); $j++) {
+            if ($sort == SORT_DESC) {
+                $sortingType = $array[$j][$key] > $array[$i][$key];
+            } else {
+                $sortingType = $array[$j][$key] < $array[$i][$key];
+            }
+            if ($sortingType) {
+                $tmp = $array[$j];
+                $array[$j] = $array[$i];
+                $array[$i] = $tmp;
+            }
+        }
+    }
+    return $array;
+}
+
+function cutString(string $line, int $length, string $appends): string
+{
+    if (iconv_strlen($line, 'utf-8') <= $length) {
+        return $line;
+    } else {
+        $line = iconv_substr($line, 0, $length) . $appends;
+        return $line;
+    }
+}
+
+function pageTitle(array $menu): void
+{
+    foreach ($menu as $value) {
+        if (isset($_GET['page'])
+            && substr($value['path'], 7) == $_GET['page']
+        ) {
+            ?><h1 class="title"> <?= $value['title'] ?></h1> <?php
+        }
+    }
+}
+
+function showMenu(array $menu, int $fontSize): void
+{
+    foreach ($menu as $value) {
+        if (isset($_GET['page'])
+            && substr($value['path'], 7) == $_GET['page']
+        ) {
+            $underline = 'class="underline"';
+        } else {
+            $underline = null;
+        }
+        $template = '<li><a href="%s"><span %s>%s</span></a></li>';
+        printf(
+            $template,
+            $value['path'],
+            $underline,
+            cutString($value['title'], 12, '...')
+        );
+    }
+}
 
