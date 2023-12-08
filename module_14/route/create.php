@@ -9,6 +9,7 @@
         <input type="file" name="myImage[]"
                multiple>
         <br>
-        <input formaction="/?page=save" type="submit" name="upload" value="Загрузить">
+        <input formaction="/?page=save" type="submit" name="upload"
+               value="Загрузить">
     </form>
 </div>

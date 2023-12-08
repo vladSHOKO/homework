@@ -12,9 +12,11 @@ if (isset($_POST['upload'])) {
                 'type' => ['image/jpeg', 'image/jpg', 'image/png']
             ]
         );
-        saveImages(correctName($images, '/[^ \w\-\.]/'), $_SERVER['DOCUMENT_ROOT'] . '/upload/');
+        saveImages(
+            correctName($images, '/[^ \w\-\.]/'),
+            $_SERVER['DOCUMENT_ROOT'] . '/upload/'
+        );
     } catch (Exception $exception) {
-
         ?>
         <div class="author__name">
             <?=
