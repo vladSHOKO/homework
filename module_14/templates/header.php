@@ -1,8 +1,6 @@
 <?php
 
 include "./src/core.php";
-deleteAll($_SERVER["DOCUMENT_ROOT"] . '/upload/');
-deleteSomePictures($_SERVER["DOCUMENT_ROOT"] . '/upload/');
 global $authorized;
 global $menu;
 ?>
