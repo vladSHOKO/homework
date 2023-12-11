@@ -1,10 +1,13 @@
 <?php
 
 include "./src/core.php";
-deleteAll($_SERVER["DOCUMENT_ROOT"] . '/upload/');
-deleteSomePictures($_SERVER["DOCUMENT_ROOT"] . '/upload/');
 global $authorized;
 global $menu;
+if (isset($_COOKIE['login']) && isset($_COOKIE['password']) && !isset($_COOKIE['PHPSESSID'])){
+    sessionInitialization();
+}
+$_SESSION['authorized'] = true;
+
 ?>
 
 <header>

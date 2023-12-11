@@ -27,8 +27,10 @@ function validateImages(array $images, array $parameters): void
 {
     checkEmpty($images);
     checkMaxCount($images, $parameters);
-    checkSize($images, $parameters);
-    checkType($images, $parameters);
+    foreach ($images as $image) {
+        checkSize($image, $parameters);
+        checkType($image, $parameters);
+    }
 }
 
 function correctName(array $images, string $pattern): array
@@ -42,26 +44,22 @@ function correctName(array $images, string $pattern): array
 /**
  * @throws Exception
  */
-function checkType(array $images, array $parameters): void
+function checkType(array $image, array $parameters): void
 {
     $types = array_flip($parameters['type']);
-    foreach ($images as $image) {
-        if (!array_key_exists($image['type'], $types)) {
-            throw new Exception('Загрузите другой формат файла');
-        }
+    if (!array_key_exists($image['type'], $types)) {
+        throw new Exception('Загрузите другой формат файла');
     }
 }
 
 /**
  * @throws Exception
  */
-function checkSize(array $images, array $parameters): void
+function checkSize(array $image, array $parameters): void
 {
     $size = $parameters['size'];
-    foreach ($images as $image) {
-        if ($image['size'] > $size ?? 2000000) {
-            throw new Exception('Слишком большой размер файла');
-        }
+    if ($image['size'] > $size ?? 2000000) {
+        throw new Exception('Слишком большой размер файла');
     }
 }
 
@@ -196,7 +194,7 @@ function showMenu(array $menu, int $fontSize): void
     }
 }
 
-function sessionInitialization()
+function sessionInitialization(): void
 {
-
+    session_start(); // Запускаем сессию
 }
