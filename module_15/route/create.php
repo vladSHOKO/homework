@@ -1,6 +1,3 @@
-<?php
-
-?>
 <div class="author__name">
 
     <form enctype="multipart/form-data" method="post"

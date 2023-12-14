@@ -9,10 +9,20 @@ global $menu;
             <?php
             showMenu(arraySort($menu, 'title', SORT_DESC), 12);
             ?>
-            <li><a href="/?login=yes"><span <?php
-                                            if (isset($_GET['login'])){
-                                            ?>class="underline" <?php
-                    } ?>><?= $authorized ? 'Выйти' : 'Авторизация' ?></span></a>
+            <li><?php
+                if (isset($_SESSION['auth'])) {
+                    ?><a href="/?action=logout&page=home"><span <?php
+                                                                if (isset($_GET['action'])){
+                                                                ?>class="underline" <?php
+                    } ?>><?= 'Выйти' ?></span></a><?php
+                } else {
+                    ?>
+                    <a href="/?action=login&page=home"><span <?php
+                                                             if (isset($_GET['action'])){
+                                                             ?>class="underline" <?php
+                        } ?>><?= 'Авторизация' ?></span></a> <?php
+                }
+                ?>
             </li>
         </ul>
     </div>

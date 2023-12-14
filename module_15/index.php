@@ -1,8 +1,13 @@
 <?php
 
+
+global $authorized;
+include $_SERVER['DOCUMENT_ROOT'] . "/src/core.php";
+include __DIR__ . "/logic/session_logic.php";
 include __DIR__ . '/main_menu.php';
 include __DIR__ . "/data/authorization.php";
-global $authorized; ?>
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +17,17 @@ global $authorized; ?>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 </head>
 <?php
+
 include "./templates/header.php"; ?>
 
 <body>
 
 <?php
+
 global $menu;
 pageTitle($menu);
 
-$requested_page = isset($_SESSION['authorized']) ? ($_GET['page'] ?? 'home') : 'home';
+$requested_page = isset($_SESSION['auth']) ? $_GET['page'] ?? 'home' : 'home';
 
 switch ($requested_page) {
     case "about":
@@ -43,13 +50,12 @@ switch ($requested_page) {
         break;
     case "save":
         include(__DIR__ . "/route/create.php");
-        include $_SERVER['DOCUMENT_ROOT'] . "/logic.php";
+        include($_SERVER['DOCUMENT_ROOT'] . "/logic/gallery_logic.php");
         break;
     default:
         include(__DIR__ . "/route/home.php");
 }
-var_dump($_COOKIE);
-var_dump($_SESSION['authorized']);
+
 ?>
 
 </body>

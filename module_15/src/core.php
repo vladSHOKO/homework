@@ -194,7 +194,22 @@ function showMenu(array $menu, int $fontSize): void
     }
 }
 
-function sessionInitialization(): void
+function sessionStart(): void
 {
-    session_start(); // Запускаем сессию
+    session_save_path($_SERVER['DOCUMENT_ROOT'] . '/sessions');
+    session_start();
+}
+
+function sessionDestroy(): void
+{
+    session_unset();
+    session_destroy();
+    unset($_COOKIE['PHPSESSID']);
+}
+
+function updateLoginCookie(): void
+{
+    if (isset($_POST['login'])) {
+        setcookie('login', $_POST['login'], time() + 60 * 60 * 24 * 30, '/');
+    }
 }

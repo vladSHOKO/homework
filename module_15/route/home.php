@@ -1,6 +1,8 @@
 <?php
 
-global $authorized; ?>
+global $authorized;
+
+?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td class="left-collum-index">
@@ -12,7 +14,7 @@ global $authorized; ?>
 
         </td>
         <td class="right-collum-index" <?php
-        if ($authorized) { ?> hidden <?php
+        if (isset($_SESSION['auth'])) { ?> hidden <?php
         } ?> >
 
             <div class="project-folders-menu">

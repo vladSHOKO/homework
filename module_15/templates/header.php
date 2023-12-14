@@ -1,13 +1,7 @@
 <?php
 
-include "./src/core.php";
 global $authorized;
 global $menu;
-if (isset($_COOKIE['login']) && isset($_COOKIE['password']) && !isset($_COOKIE['PHPSESSID'])){
-    sessionInitialization();
-}
-$_SESSION['authorized'] = true;
-
 ?>
 
 <header>
@@ -22,10 +16,20 @@ $_SESSION['authorized'] = true;
             <?php
             showMenu(arraySort($menu, 'sort', SORT_ASC), 16);
             ?>
-            <li><a href="/?login=yes"><span <?php
-                                            if (isset($_GET['login'])){
-                                            ?>class="underline" <?php
-                    } ?>><?= isset($_SESSION['authorized']) ? 'Выйти' : 'Авторизация' ?></span></a>
+            <li><?php
+                if (isset($_SESSION['auth'])) {
+                    ?><a href="/?action=logout&page=home"><span <?php
+                                                                if (isset($_GET['action'])){
+                                                                ?>class="underline" <?php
+                    } ?>><?= 'Выйти' ?></span></a><?php
+                } else {
+                    ?>
+                    <a href="/?action=login&page=home"><span <?php
+                                                             if (isset($_GET['action'])){
+                                                             ?>class="underline" <?php
+                        } ?>><?= 'Авторизация' ?></span></a> <?php
+                }
+                ?>
             </li>
         </ul>
     </div>
