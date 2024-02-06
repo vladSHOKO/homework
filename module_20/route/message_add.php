@@ -1,16 +1,7 @@
 <?php
 
-$connect = databaseConnect(
-    '127.0.0.1',
-    'root',
-    'Faraonkill1',
-    'authorization'
-);
-
-$request = $connect->query(
-    'select id, name, surname from profiles order by surname desc'
-);
-insertMessage($connect);
+$mail = new Mail('127.0.0.1', 'root', 'Faraonkill1', 'authorization');
+$mail->insertMessage();
 
 ?>
 
@@ -36,9 +27,10 @@ insertMessage($connect);
                 <label for="fruits">Выберите получателя</label>
                 <select name="recipient">
                     <?php
-                    while ($row = $request->fetch(PDO::FETCH_ASSOC)) { ?>
+                    $recipients = $mail->getListOfRecipients();
+                    foreach ($recipients as $recipient) { ?>
                         <option
-                            value="<?= $row['id'] ?>"><?= $row['surname'], ' ', $row['name'] ?></option>
+                            value="<?= $recipient['id'] ?>"><?= $recipient['surname'], ' ', $recipient['name'] ?></option>
                         <?php
                     } ?>
                 </select>

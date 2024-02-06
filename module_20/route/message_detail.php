@@ -1,20 +1,14 @@
 <?php
 
-$connect = databaseConnect(
-    '127.0.0.1',
-    'root',
-    'Faraonkill1',
-    'authorization'
-);
-
-updateMessageStatus($connect);
-$result_message = selectCurrentMessage($connect);
-$result_sender = selectCurrentSender($connect, $result_message);
+$mail = new Mail('127.0.0.1', 'root', 'Faraonkill1', 'authorization');
+$mail->updateMessageStatus();
+$currentMessage = $mail->getDataOfCurrentMessage();
+$sender = $mail->getDataOfSender($currentMessage);
 
 ?>
 <br>
-<h1 class="author__name"> <?= $result_message['title'] ?> </h1>
-<p class="author__name"><?= $result_message['time'] ?></p>
+<h1 class="author__name"> <?= $currentMessage['title'] ?> </h1>
+<p class="author__name"><?= $currentMessage['time'] ?></p>
 
 <div class="author__name">
 
@@ -22,14 +16,14 @@ $result_sender = selectCurrentSender($connect, $result_message);
         Отправитель:
     </label>
     <label>
-        <?= $result_sender['surname'] . " " . $result_sender['name'] ?>
+        <?= $sender['surname'] . " " . $sender['name'] ?>
     </label>
     <br>
     <label>
         email:
     </label>
     <label>
-        <?= $result_sender['email'] ?>
+        <?= $sender['email'] ?>
     </label>
     <br>
     <br>
@@ -37,7 +31,7 @@ $result_sender = selectCurrentSender($connect, $result_message);
         Сообщение:
     </lable>
     <p>
-        <?= $result_message['text'] ?>
+        <?= $currentMessage['text'] ?>
     </p>
 
 </div>
