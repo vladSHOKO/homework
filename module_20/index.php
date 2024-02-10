@@ -1,6 +1,10 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'] . "/src/core.php";
+namespace Module\Twenty;
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+include __DIR__ . "/src/core.php";
 include __DIR__ . "/logic/session_logic.php";
 include __DIR__ . '/main_menu.php';
 include __DIR__ . "/data/authorization.php";

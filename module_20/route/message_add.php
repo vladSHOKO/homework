@@ -1,5 +1,7 @@
 <?php
 
+namespace Module\Twenty;
+
 $mail = new Mail('127.0.0.1', 'root', 'Faraonkill1', 'authorization');
 $mail->insertMessage();
 
