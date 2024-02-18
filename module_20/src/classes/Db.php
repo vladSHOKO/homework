@@ -6,22 +6,22 @@ use PDO;
 
 class Db
 {
-    private string $hostname = '127.0.0.1';
-    private string $username = 'user';
-    private string $password = 'Faraonkill1';
-    private string $dbname = 'authorization';
+    private static string $hostname = '127.0.0.1';
+    private static string $username = 'user';
+    private static string $password = 'Faraonkill1';
+    private static string $dbname = 'authorization';
 
-    private ?PDO $connection = null;
+    private static ?PDO $connection = null;
 
-    public function getConnection(): PDO
+    public static function getConnection(): PDO
     {
-        if ($this->connection === null) {
-            $this->connection = new PDO(
-                "mysql:host=$this->hostname;dbname=$this->dbname;charset=utf8",
-                $this->username,
-                $this->password
+        if (self::$connection === null) {
+            self::$connection = new PDO(
+                sprintf("mysql:host=%s;dbname=%s;charset=utf8", self::$hostname, self::$dbname),
+                self::$username,
+                self::$password
             );
         }
-        return $this->connection;
+        return self::$connection;
     }
 }

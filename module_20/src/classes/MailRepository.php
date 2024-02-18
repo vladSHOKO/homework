@@ -4,12 +4,18 @@ namespace Module\Twenty;
 
 use PDO;
 
-class Mail extends Database
+class MailRepository
 {
+    private PDO $connection;
+
+    public function __construct(PDO $connection)
+    {
+        $this->connection = $connection;
+    }
+
     public function getMessageList(): array
     {
-        $connect = parent::databaseConnect();
-        $request = $connect->prepare(
+        $request = $this->connection->prepare(
             'select * from messages where recipient_id = :id'
         );
         $request->execute(['id' => $_SESSION['user_id']]);
@@ -22,8 +28,7 @@ class Mail extends Database
 
     public function getDataOfCurrentMessage(): array
     {
-        $connect = parent::databaseConnect();
-        $request = $connect->prepare(
+        $request = $this->connection->prepare(
             'select * from messages where id = ? and recipient_id = ?'
         );
         $request->execute([$_GET['id'], $_SESSION['user_id']]);
@@ -32,8 +37,7 @@ class Mail extends Database
 
     public function getDataOfSender(array $message): array
     {
-        $connect = parent::databaseConnect();
-        $request = $connect->prepare(
+        $request = $this->connection->prepare(
             'select name, surname, email from users where id = ?'
         );
         $request->execute([$message['sender_id']]);
@@ -42,8 +46,7 @@ class Mail extends Database
 
     public function updateMessageStatus(): void
     {
-        $connect = parent::databaseConnect();
-        $requestOfUpdateStatus = $connect->prepare(
+        $requestOfUpdateStatus = $this->connection->prepare(
             'update messages set readed = 1 where id = ?'
         );
         $requestOfUpdateStatus->execute([$_GET['id']]);
@@ -51,8 +54,7 @@ class Mail extends Database
 
     public function getListOfRecipients(): array
     {
-        $connect = parent::databaseConnect();
-        $request = $connect->prepare(
+        $request = $this->connection->prepare(
             'select id, name, surname from users order by name'
         );
         $request->execute();
@@ -65,9 +67,8 @@ class Mail extends Database
 
     public function insertMessage(): void
     {
-        $connect = parent::databaseConnect();
         if (isset($_POST['recipient'])) {
-            $request = $connect->prepare(
+            $request = $this->connection->prepare(
                 'insert into messages (title, text, sender_id, recipient_id, time) values (?, ?, ?, ?, ?)'
             );
             $request->execute(
