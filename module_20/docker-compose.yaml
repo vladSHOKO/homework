@@ -8,10 +8,10 @@ services:
     volumes:
       - "db_app:/var/lib/mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: "Faraonkill1"
+      MYSQL_ROOT_PASSWORD: "password"
       MYSQL_DATABASE: "authorization"
       MYSQL_USER: "user"
-      MYSQL_PASSWORD: "Faraonkill1"
+      MYSQL_PASSWORD: "password"
     ports:
       - "3306:3306"
 

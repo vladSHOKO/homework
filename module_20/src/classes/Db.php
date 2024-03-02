@@ -8,7 +8,7 @@ class Db
 {
     private static string $hostname = '127.0.0.1';
     private static string $username = 'user';
-    private static string $password = 'Faraonkill1';
+    private static string $password = 'password';
     private static string $dbname = 'authorization';
 
     private static ?PDO $connection = null;
