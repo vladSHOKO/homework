@@ -2,7 +2,7 @@
 
 namespace Module\Twenty;
 
-$user = new User('127.0.0.1', 'root', 'Faraonkill1', 'authorization');
+$user = new UserRepository(Db::getConnection());
 foreach ($user->getData() as $key => $item) {
     ?> <p class="author__name"><?php
         echo $key, ': ', $item; ?></p>

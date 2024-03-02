@@ -4,8 +4,15 @@ namespace Module\Twenty;
 
 use PDO;
 
-class Authorization extends Database
+class Authorization
 {
+    private PDO $connection;
+
+    public function __construct(PDO $connection)
+    {
+        $this->connection = $connection;
+    }
+
     public function validateUser(): void
     {
         $user = $this->findUsersForLogin();
@@ -14,8 +21,7 @@ class Authorization extends Database
 
     private function findUsersForLogin(): array
     {
-        $connect = parent::databaseConnect();
-        $request = $connect->prepare(
+        $request = $this->connection->prepare(
             'select id, login, password from users where login = :login'
         );
         $request->execute(['login' => $_POST['login']]);
