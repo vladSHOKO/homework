@@ -4,8 +4,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Module\\Twenty\\": "src/classes"
-        }
+            "Module\\Twenty\\": "src/classes",
+            "Module\\Twenty\\Tests\\": "tests"
+        },
+        "files": [
+            "src/core.php"
+        ]
     },
     "authors": [
         {
