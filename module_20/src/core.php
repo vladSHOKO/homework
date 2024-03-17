@@ -174,7 +174,7 @@ function pageTitle(array $menu): void
     }
 }
 
-function showMenu(array $menu, int $fontSize): void
+function showMenu(array $menu): void
 {
     foreach ($menu as $value) {
         if (isset($_GET['page'])
@@ -194,17 +194,17 @@ function showMenu(array $menu, int $fontSize): void
     }
 }
 
-function sessionStart(): void
+function sessionStart(): bool
 {
     session_save_path($_SERVER['DOCUMENT_ROOT'] . '/sessions');
-    session_start();
+    return session_start();
 }
 
-function sessionDestroy(): void
+function sessionDestroy(): bool
 {
     session_unset();
-    session_destroy();
     unset($_COOKIE['PHPSESSID']);
+    return session_destroy();
 }
 
 function updateLoginCookie(): void

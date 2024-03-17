@@ -29,7 +29,6 @@ class UserRepository
         );
         $request->execute(['login' => $_POST['login']]);
         $result = $request->fetch(PDO::FETCH_ASSOC);
-        var_dump($request->fetch(PDO::FETCH_ASSOC));
         if (!$result) {
             return [];
         } else {
