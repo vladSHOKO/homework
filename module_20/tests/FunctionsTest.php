@@ -96,6 +96,4 @@ class  FunctionsTest extends TestCase
         $_GET['page'] = 'about';
         showMenu([['path' => '/?page=about', 'title' => 'title']]);
     }
-
-
 }
