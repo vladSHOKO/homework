@@ -3,7 +3,7 @@
 namespace Module\Twenty;
 
 $mail = new MailRepository(Db::getConnection());
-$mail->insertMessage();
+$mail->insertMessage($_POST['message_title'], $_POST['message_text'], $_SESSION['user_id'], $_POST['recipient']);
 
 ?>
 

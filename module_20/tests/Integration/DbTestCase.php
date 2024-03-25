@@ -50,7 +50,7 @@ class DbTestCase extends TestCase
             text TEXT NOT NULL,
             sender_id INT NOT NULL,
             recipient_id INT NOT NULL,
-            readed TINYINT NOT NULL,
+            readed TINYINT NOT NULL DEFAULT 0,
             time VARCHAR(255) NOT NULL
         )'
         );

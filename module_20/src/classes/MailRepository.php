@@ -65,18 +65,18 @@ class MailRepository
         return $list;
     }
 
-    public function insertMessage(): void
+    public function insertMessage($messageTitle, $messageText, $userId, $recipient): void
     {
-        if (isset($_POST['recipient'])) {
+        if (isset($recipient)) {
             $request = $this->connection->prepare(
                 'insert into messages (title, text, sender_id, recipient_id, time) values (?, ?, ?, ?, ?)'
             );
             $request->execute(
                 array(
-                    $_POST['message_title'],
-                    $_POST['message_text'],
-                    $_SESSION['user_id'],
-                    $_POST['recipient'],
+                    $messageTitle,
+                    $messageText,
+                    $userId,
+                    $recipient,
                     date('Y-m-d H:i:s')
                 )
             );

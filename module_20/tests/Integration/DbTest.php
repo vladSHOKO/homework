@@ -5,6 +5,7 @@ namespace Integration;
 use Module\Twenty\MailRepository;
 use Module\Twenty\Tests\Integration\DbTestCase;
 use Module\Twenty\UserRepository;
+use mysql_xdevapi\CollectionAdd;
 
 class DbTest extends DbTestCase
 {
@@ -104,6 +105,18 @@ SQL
         $this->assertEquals(
             [0 => ['id' => 1, 'name' => 'Иван', 'surname' => 'Иванов']],
             $list->getListOfRecipients()
+        );
+    }
+
+    public function testInsertMessage()
+    {
+        $message = new MailRepository($this->getConnection());
+        $message->insertMessage('test', 'test', 1, 1);
+        $currentMessage = $message->getDataOfCurrentMessage(1, 1);
+        unset($currentMessage['readed'], $currentMessage['time']);
+        $this->assertEquals(
+            ['id' => 1, 'title' => 'test', 'text' => 'test', 'sender_id' => 1, 'recipient_id' => 1],
+            $currentMessage
         );
     }
 }
