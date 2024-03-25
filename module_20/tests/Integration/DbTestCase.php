@@ -2,7 +2,6 @@
 
 namespace Module\Twenty\Tests\Integration;
 
-use Module\Twenty\Db;
 use PDO;
 use PHPUnit\Framework\TestCase;
 
@@ -41,6 +40,18 @@ class DbTestCase extends TestCase
             phone_number VARCHAR(255) NOT NULL,
             login VARCHAR(255) NOT NULL,
             password VARCHAR(255) NOT NULL
+        )'
+        );
+        $this->getConnection()->exec('DROP TABLE IF EXISTS messages');
+        $this->getConnection()->exec(
+            'CREATE TABLE messages (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            text TEXT NOT NULL,
+            sender_id INT NOT NULL,
+            recipient_id INT NOT NULL,
+            readed TINYINT NOT NULL,
+            time VARCHAR(255) NOT NULL
         )'
         );
     }

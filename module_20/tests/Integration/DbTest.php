@@ -2,6 +2,7 @@
 
 namespace Integration;
 
+use Module\Twenty\MailRepository;
 use Module\Twenty\Tests\Integration\DbTestCase;
 use Module\Twenty\UserRepository;
 
@@ -25,6 +26,22 @@ SQL
             ['Имя' => 'Иван', 'Фамилия' => 'Иванов', 'Отчество' => 'Иванович', 'Почта' => 'test@mail.ru', 'Телефон' => '1234567890'],
             $repository->getData(1)
         );
+    }
+
+    public function testGetMessageList()
+    {
+        $this->getConnection()->exec(
+            <<<SQL
+INSERT INTO messages (id, title, text, sender_id, recipient_id, readed, time)
+VALUES ("1", "test", "test", "1", "1", "0", "01/01/01");
+SQL
+        );
+        $repository = new MailRepository($this->getConnection());
+        $this->assertEquals(
+            [1 => ["id" => 1, "title" => "test", "text" => "test", "sender_id" => 1, "recipient_id" => 1, "readed" => 0, "time" => "01/01/01"]],
+            $repository->getMessageList(1)
+        );
+
     }
 
 

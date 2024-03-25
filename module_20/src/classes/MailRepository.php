@@ -13,12 +13,12 @@ class MailRepository
         $this->connection = $connection;
     }
 
-    public function getMessageList(): array
+    public function getMessageList($userId): array
     {
         $request = $this->connection->prepare(
             'select * from messages where recipient_id = :id'
         );
-        $request->execute(['id' => $_SESSION['user_id']]);
+        $request->execute(['id' => $userId]);
         $messageList = [];
         while ($row = $request->fetch(PDO::FETCH_ASSOC)) {
             $messageList[$row['id']] = $row;

@@ -3,7 +3,7 @@
 namespace Module\Twenty;
 
 $mail = new MailRepository(Db::getConnection());
-$messageList = $mail->getMessageList();
+$messageList = $mail->getMessageList($_SESSION['user_id']);
 
 ?>
 
