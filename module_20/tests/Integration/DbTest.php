@@ -75,4 +75,20 @@ SQL
         );
 
     }
+
+    public function testUpdateMessageStatus()
+    {
+        $this->getConnection()->exec(
+          <<<SQL
+INSERT INTO messages (id, title, text, sender_id, recipient_id, readed, time)
+VALUES ("1", "test", "test", "1", "1", "0", "01/01/01");
+SQL
+        );
+        $repository = new MailRepository($this->getConnection());
+        $repository->updateMessageStatus(1);
+        $this->assertEquals(
+            ['id' => 1, 'title' => 'test', 'text' => 'test', 'sender_id' => 1, 'recipient_id' => 1, 'readed' => 1, 'time' => '01/01/01'],
+            $repository->getDataOfCurrentMessage(1, 1)
+        );
+    }
 }
