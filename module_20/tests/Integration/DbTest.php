@@ -58,5 +58,27 @@ SQL
         );
     }
 
+    public function testGetDataOfSender()
+    {
+        $this->getConnection()->exec(
+            <<<SQL
+INSERT INTO messages (id, title, text, sender_id, recipient_id, readed, time)
+VALUES ("1", "test", "test", "1", "1", "0", "01/01/01");
+INSERT INTO users (name, surname, father_name, email, phone_number, login, password) 
+VALUES ("Иван", "Иванов", "Иванович", "test@mail.ru", "1234567890", "test", "test");
+SQL
+        );
+        $this->getConnection()->exec(
+            <<<SQL
+INSERT INTO users (name, surname, father_name, email, phone_number, login, password) 
+VALUES ("Иван", "Иванов", "Иванович", "test@mail.ru", "1234567890", "test", "test");
+SQL
+        );
+        $repository = new MailRepository($this->getConnection());
+        $this->assertEquals(
+            ['name' => 'Иван', 'surname' => 'Иванов', 'email' => 'test@mail.ru'],
+            $repository->getDataOfSender($repository->getDataOfCurrentMessage(1, 1))
+        );
 
+    }
 }
