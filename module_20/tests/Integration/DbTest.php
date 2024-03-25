@@ -41,7 +41,21 @@ SQL
             [1 => ["id" => 1, "title" => "test", "text" => "test", "sender_id" => 1, "recipient_id" => 1, "readed" => 0, "time" => "01/01/01"]],
             $repository->getMessageList(1)
         );
+    }
 
+    public function testGetDataOfCurrentMessage()
+    {
+        $this->getConnection()->exec(
+            <<<SQL
+INSERT INTO messages (id, title, text, sender_id, recipient_id, readed, time)
+VALUES ("1", "test", "test", "1", "1", "0", "01/01/01");
+SQL
+        );
+        $repository = new MailRepository($this->getConnection());
+        $this->assertEquals(
+            ['id' => 1, 'title' => 'test', 'text' => 'test', 'sender_id' => 1, 'recipient_id' => 1, 'readed' => 0, 'time' => '01/01/01'],
+            $repository->getDataOfCurrentMessage(1, 1)
+        );
     }
 
 

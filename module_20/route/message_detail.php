@@ -4,7 +4,7 @@ namespace Module\Twenty;
 
 $mail = new MailRepository(Db::getConnection());
 $mail->updateMessageStatus();
-$currentMessage = $mail->getDataOfCurrentMessage();
+$currentMessage = $mail->getDataOfCurrentMessage($_GET['id'], $_SESSION['user_id']);
 $sender = $mail->getDataOfSender($currentMessage);
 
 ?>

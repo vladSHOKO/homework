@@ -26,12 +26,12 @@ class MailRepository
         return $messageList;
     }
 
-    public function getDataOfCurrentMessage(): array
+    public function getDataOfCurrentMessage($messageId, $userId): array
     {
         $request = $this->connection->prepare(
             'select * from messages where id = ? and recipient_id = ?'
         );
-        $request->execute([$_GET['id'], $_SESSION['user_id']]);
+        $request->execute([$messageId, $userId]);
         return $request->fetch(PDO::FETCH_ASSOC);
     }
 
