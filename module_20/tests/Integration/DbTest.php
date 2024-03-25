@@ -79,7 +79,7 @@ SQL
     public function testUpdateMessageStatus()
     {
         $this->getConnection()->exec(
-          <<<SQL
+            <<<SQL
 INSERT INTO messages (id, title, text, sender_id, recipient_id, readed, time)
 VALUES ("1", "test", "test", "1", "1", "0", "01/01/01");
 SQL
@@ -89,6 +89,21 @@ SQL
         $this->assertEquals(
             ['id' => 1, 'title' => 'test', 'text' => 'test', 'sender_id' => 1, 'recipient_id' => 1, 'readed' => 1, 'time' => '01/01/01'],
             $repository->getDataOfCurrentMessage(1, 1)
+        );
+    }
+
+    public function testGetListOfRecipients()
+    {
+        $this->getConnection()->exec(
+            <<<SQL
+INSERT INTO users (name, surname, father_name, email, phone_number, login, password) 
+VALUES ("Иван", "Иванов", "Иванович", "test@mail.ru", "1234567890", "test", "test");
+SQL
+        );
+        $list = new MailRepository($this->getConnection());
+        $this->assertEquals(
+            [0 => ['id' => 1, 'name' => 'Иван', 'surname' => 'Иванов']],
+            $list->getListOfRecipients()
         );
     }
 }
