@@ -44,12 +44,12 @@ class MailRepository
         return $request->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateMessageStatus(): void
+    public function updateMessageStatus($messageId): void
     {
         $requestOfUpdateStatus = $this->connection->prepare(
             'update messages set readed = 1 where id = ?'
         );
-        $requestOfUpdateStatus->execute([$_GET['id']]);
+        $requestOfUpdateStatus->execute([$messageId]);
     }
 
     public function getListOfRecipients(): array
