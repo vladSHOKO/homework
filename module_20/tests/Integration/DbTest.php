@@ -2,10 +2,11 @@
 
 namespace Integration;
 
+use Module\Twenty\AuthorizationChecker;
 use Module\Twenty\MailRepository;
 use Module\Twenty\Tests\Integration\DbTestCase;
 use Module\Twenty\UserRepository;
-use mysql_xdevapi\CollectionAdd;
+use ReflectionMethod;
 
 class DbTest extends DbTestCase
 {
@@ -117,6 +118,31 @@ SQL
         $this->assertEquals(
             ['id' => 1, 'title' => 'test', 'text' => 'test', 'sender_id' => 1, 'recipient_id' => 1],
             $currentMessage
+        );
+    }
+
+    private function runInaccesibleMethod($object, string $methodname, array $args = [])
+    {
+        $method = new ReflectionMethod($object, $methodname);
+        $method->setAccessible(true);
+        $result = $method->invokeArgs($object, $args);
+        $method->setAccessible(false);
+
+        return $result;
+    }
+
+    public function testFindUserForLogin()
+    {
+        $this->getConnection()->exec(
+            <<<SQL
+INSERT INTO users (name, surname, father_name, email, phone_number, login, password) 
+VALUES ("Иван", "Иванов", "Иванович", "test@mail.ru", "1234567890", "test", "test");
+SQL
+        );
+        $user = new AuthorizationChecker($this->getConnection());
+        $this->assertEquals(
+            ['id' => 1, 'login' => 'test', 'password' => 'test'],
+            $this->runInaccesibleMethod($user, 'findUsersForLogin', ['test'])
         );
     }
 }

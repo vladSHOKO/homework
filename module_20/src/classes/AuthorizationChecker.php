@@ -13,12 +13,12 @@ class AuthorizationChecker
         $this->connection = $connection;
     }
 
-    private function findUsersForLogin(): array
+    private function findUsersForLogin($userLogin): array
     {
         $request = $this->connection->prepare(
             'select id, login, password from users where login = :login'
         );
-        $request->execute(['login' => $_POST['login']]);
+        $request->execute(['login' => $userLogin]);
         $result = $request->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             return [];
@@ -45,7 +45,7 @@ class AuthorizationChecker
 
     public function validateUser(): void
     {
-        $user = $this->findUsersForLogin();
+        $user = $this->findUsersForLogin($_POST['login']);
         $this->setDataInSession($user, $this->checkUserPassword($user));
     }
 }
