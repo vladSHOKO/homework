@@ -29,7 +29,7 @@ class AuthorizationChecker
 
     private function setDataInSession(array $user, bool $correctPassword): void
     {
-        if (!empty($user) && $correctPassword) {
+        if ($correctPassword) {
             $_SESSION['auth'] = true;
             $_SESSION['user_id'] = $user['id'];
         }
@@ -43,9 +43,13 @@ class AuthorizationChecker
         );
     }
 
-    public function validateUser(): void
+    public function validateUser(): array
     {
         $user = $this->findUsersForLogin($_POST['login']);
-        $this->setDataInSession($user, $this->checkUserPassword($user));
+        if ($this->checkUserPassword($user)) {
+            return $user;
+        } else {
+            return [];
+        }
     }
 }
