@@ -35,13 +35,13 @@ class AuthorizationChecker
         );
     }
 
-    public function validateUser(): mixed
+    public function validateUser($userLogin, $userPassword): array|false
     {
-        $user = $this->findUsersForLogin($_POST['login']);
-        if ($this->checkUserPassword($_POST['password'], $user)) {
+        $user = $this->findUsersForLogin($userLogin);
+        if ($this->checkUserPassword($userPassword, $user)) {
             return $user;
         } else {
-            return [];
+            return false;
         }
     }
 }
