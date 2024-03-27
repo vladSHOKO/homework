@@ -27,14 +27,6 @@ class AuthorizationChecker
         }
     }
 
-    private function setDataInSession(array $user, bool $correctPassword): void
-    {
-        if ($correctPassword) {
-            $_SESSION['auth'] = true;
-            $_SESSION['user_id'] = $user['id'];
-        }
-    }
-
     private function checkUserPassword(array $user): bool
     {
         return password_verify(
