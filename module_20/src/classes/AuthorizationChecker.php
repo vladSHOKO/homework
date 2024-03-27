@@ -27,18 +27,18 @@ class AuthorizationChecker
         }
     }
 
-    private function checkUserPassword(array $user): bool
+    private function checkUserPassword(string $enteredPassword, array $user): bool
     {
         return password_verify(
-            $_POST['password'],
+            $enteredPassword,
             $user['password']
         );
     }
 
-    public function validateUser(): array
+    public function validateUser(): mixed
     {
         $user = $this->findUsersForLogin($_POST['login']);
-        if ($this->checkUserPassword($user)) {
+        if ($this->checkUserPassword($_POST['password'], $user)) {
             return $user;
         } else {
             return [];

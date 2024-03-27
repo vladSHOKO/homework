@@ -145,4 +145,10 @@ SQL
             $this->runInaccesibleMethod($user, 'findUsersForLogin', ['test'])
         );
     }
+
+    public function testCheckUserPassword()
+    {
+        $currentUser = new AuthorizationChecker($this->getConnection());
+        $this->assertTrue($this->runInaccesibleMethod($currentUser, 'checkUserPassword', ['test', ['password' => password_hash('test', PASSWORD_DEFAULT)]]));
+    }
 }

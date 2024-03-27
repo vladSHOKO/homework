@@ -1,6 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use \Module\Twenty\AuthorizationChecker;
+use PDO;
+use Module\Twenty\Db;
+use Integration\DbTest;
 
 class  FunctionsTest extends TestCase
 {
