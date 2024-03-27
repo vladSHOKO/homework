@@ -151,4 +151,21 @@ SQL
         $currentUser = new AuthorizationChecker($this->getConnection());
         $this->assertTrue($this->runInaccesibleMethod($currentUser, 'checkUserPassword', ['test', ['password' => password_hash('test', PASSWORD_DEFAULT)]]));
     }
+
+    public function testValidateUser()
+    {
+        $passwordHash = password_hash('test', PASSWORD_DEFAULT);
+        $request = $this->getConnection()->prepare(
+            <<<SQL
+INSERT INTO users (name, surname, father_name, email, phone_number, login, password) 
+VALUES (?, ?, ?, ?, ?, ?, ?);
+SQL
+        );
+        $request->execute(["Иван", "Иванов", "Иванович", "test@mail.ru", "1234567890", "test", $passwordHash]);
+        $user = new AuthorizationChecker($this->getConnection());
+        $this->assertEquals(
+            ['id' => 1, 'login' => 'test', 'password' => $passwordHash],
+            $user->validateUser('test', 'test')
+        );
+    }
 }
